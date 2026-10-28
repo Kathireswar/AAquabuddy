@@ -1,0 +1,23 @@
+
+
+# Dependencies
+node_modules/
+
+# Electron build output
+release/
+dist/
+build/
+
+# Environment secrets
+.env
+.env.*
+
+# Logs
+npm-debug.log*.env
+dist/
+build/
+node_modules/
+release/
+dist/
+build/
+*.exe
