@@ -4,6 +4,12 @@ AquaBuddy is an animated desktop companion for Windows 10 and
 Windows 11 that walks along the bottom edge of your screen, above the
 taskbar, and reminds you to stay hydrated throughout the day.
 
+## 🎭 Featured Character
+
+AquaBuddy features an animated desktop companion inspired by Mamitha Baiju. The character animation is displayed above the Windows taskbar to make hydration reminders more engaging.
+
+Custom character animations can also be added through the Studio Dashboard.
+
 Unlike standard notifications that are easy to overlook, AquaBuddy
 displays a customizable animated companion on your desktop. It supports
 AI-generated green-screen walking videos (.mp4 and .webm), animated
