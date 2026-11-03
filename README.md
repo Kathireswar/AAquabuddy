@@ -1,135 +1,34 @@
-# AquaBuddy — Windows 11 Water Reminder Desktop Companion
-
-AquaBuddy is an animated desktop companion for Windows 10 and
-Windows 11 that walks along the bottom edge of your screen, above the
-taskbar, and reminds you to stay hydrated throughout the day.
-
-## 🎭 Featured Character
-
-AquaBuddy features an animated desktop companion inspired by Mamitha Baiju. The character animation is displayed above the Windows taskbar to make hydration reminders more engaging.
-
-Custom character animations can also be added through the Studio Dashboard.
-
-Unlike standard notifications that are easy to overlook, AquaBuddy
-displays a customizable animated companion on your desktop. It supports
-AI-generated green-screen walking videos (.mp4 and .webm), animated
-GIF sprites, and transparent PNG cutouts.
-✨ Key Features
-- 🚶 Animated desktop companion: Walks left and right along the
-  bottom of the screen, above the taskbar.
-- 🖱️ Click-through transparency: Uses cursor hit-box detection and
-  Electron's setIgnoreMouseEvents API so areas outside the character
-  or reminder bubble can pass clicks through to underlying apps.
-- 💬 Water reminders: When a reminder is due, a speech bubble
-  asks, "Have you had some water?" and offers:
-  - Yes: Logs water intake (250 ml by default) and hides the
-    companion until the next reminder.
-  - Remind me later: Snoozes the reminder until the snooze
-    period ends.
-- 🎬 Green-screen removal: Uses an HTML Canvas HSV chroma-keying
-  pipeline to remove green or white backgrounds from supported videos,
-  with edge de-spill processing.
-- 🎛️ AquaBuddy Studio Dashboard:
-  - Master ON/OFF switch.
-  - Live clock and countdown.
-  - Editable next water-drinking time.
-  - Test mode to preview the companion without resetting the active
-    countdown.
-  - Built-in character selection and custom .mp4, .webm, .gif,
-    or .png uploads.
-  - Character size controls from 50% to 300% and walking-speed
-    controls.
-- 📥 System tray integration: Runs in the Windows system tray when
-  the Settings Dashboard is closed.
-⚙️ Architecture
-AquaBuddy uses Electron, React, TypeScript, and Vite in a multi-window
-desktop architecture.
-1. Main process --- electron/main.ts
-   - Manages the transparent, frameless, always-on-top companion
-     overlay and the Studio Dashboard.
-   - Uses display work-area information and display/DPI change events
-     to help position the companion above the taskbar.
-   - Runs the reminder scheduler and persists settings and daily
-     hydration history under
-     %APPDATA%\\aquabuddy\\aquabuddy-store.json.
-2. Preload bridge --- electron/preload.ts
-   - Uses contextIsolation: true and nodeIntegration: false.
-   - Exposes a typed window.aquaBuddy IPC bridge to the renderer.
-3. Renderer --- src/renderer/
-   - CompanionView.tsx: Companion animation, pointer hit-box
-     handling, and reminder bubble.
-   - AquaSprite.tsx: Video, GIF, and PNG rendering, including
-     chroma-key and de-spill processing.
-   - SettingsView.tsx: Dashboard controls, reminder configuration,
-     and hydration tracking.
-🚀 Installation for Users
-Option 1: Download a Windows installer
-1. Open the repository's Releases page.
-2. Download the latest AquaBuddy Windows installer, if a release is
-   available.
-3. Run the installer and follow the setup instructions.
-4. Launch AquaBuddy. Its icon should appear in the Windows system tray.
-Tip: Double-click the companion or right-click the AquaBuddy tray
-icon and choose Open Studio Dashboard to customize reminders,
-character size, and appearance.
-
-🛠️ Setup for Developers
-Prerequisites
-- Windows 10 or Windows 11 (64-bit)
-- Node.js v18 or later recommended
-- Git
-1. Clone the repository
-git clone https://github.com/Kathireswar/AAquabuddy.git
+AquaBuddy — Windows 11 & Windows 10 Water Reminder Desktop Companion AppAquaBuddy is a free, open-source animated desktop companion and hydration reminder app for Windows 11 and Windows 10. Designed to walk smoothly along the bottom edge of your screen directly above the Windows taskbar, AquaBuddy replaces easy-to-ignore system notifications with an interactive, customizable virtual desktop pet and character overlay that reminds you to drink water throughout the day.Built with Electron, React, TypeScript, and Vite, AquaBuddy features an animated desktop companion inspired by Mamitha Baiju, real-time HTML Canvas HSV chroma-key (green-screen) removal, click-through transparency, daily hydration tracking, and a full Studio Dashboard for uploading custom .mp4, .webm, .gif, and .png character animations.Why Choose AquaBuddy Over Standard Water Reminder Apps?Traditional Windows hydration reminders rely on standard system tray toast notifications that quickly get dismissed or buried during focused work, gaming, or coding sessions. AquaBuddy solves notification fatigue with a lightweight, non-intrusive visual companion:FeatureStandard Notification AppsAquaBuddy Desktop CompanionVisual PresenceStatic toast popups that disappearAnimated character walking above the Windows taskbarWindow InteractionBlocks clicks until dismissedSmart click-through transparency (setIgnoreMouseEvents)Custom CharactersFixed icons or static imagesBuilt-in Mamitha Baiju companion + custom .mp4, .webm, .gif, .png uploadsGreen-Screen Video SupportNoneReal-time HTML Canvas HSV chroma-keying with edge de-spillHydration LoggingBasic or manual entryInteractive speech bubble logging (250 ml default) + local JSON historyPlatform SupportVariesNative Windows 10 & Windows 11 (64-bit) with DPI and work-area awareness🎭 Featured Character & Custom Desktop AnimationsAquaBuddy includes a built-in animated desktop companion inspired by Mamitha Baiju. The character walks left and right above the Windows taskbar to make daily hydration reminders visually engaging without blocking your active workflow.Want to use your own character, anime sprite, or AI-generated walking animation? Through the AquaBuddy Studio Dashboard, you can upload and configure:AI-Generated Green-Screen Walking Videos (.mp4 and .webm): Automatically keyed out in real time using AquaBuddy's built-in HSV chroma-keying pipeline.Animated GIF Sprites (.gif): Looping pixel art or 2D character walk cycles.Transparent Cutouts (.png): Crisp static or sprite-based character overlays.✨ Key Features🚶 Taskbar-Walking Animated Desktop Companion: Walks seamlessly left and right along the bottom edge of your display, automatically positioned above the Windows 10 or Windows 11 taskbar.🖱️ Smart Click-Through Transparency: Combines cursor hit-box detection with Electron's setIgnoreMouseEvents API so clicks outside the character sprite or speech bubble pass directly through to your underlying apps, games, and editors.💬 Interactive Water Reminder Speech Bubble: When a hydration reminder triggers, your companion stops and asks, "Have you had some water?" with two quick actions:Yes: Logs your water intake (250 ml by default) to your daily hydration history and hides the companion until the next scheduled reminder.Remind me later: Snoozes the alert and brings the companion back automatically once the snooze interval finishes.🎬 Real-Time Green-Screen & Background Removal: Uses an HTML Canvas HSV chroma-keying pipeline to strip green or white backgrounds from .mp4 and .webm videos on the fly, complete with adjustable key tolerance and edge de-spill processing.🎛️ AquaBuddy Studio Dashboard:Master ON/OFF Switch: Pause or resume the desktop companion anytime.Live Clock & Countdown Timer: View real-time status and edit your next scheduled water-drinking time.Non-Destructive Test Mode: Preview character animations, size, and speech bubbles immediately without resetting your active hydration countdown.Character & Media Manager: Switch between built-in characters or upload custom .mp4, .webm, .gif, or .png files.Size & Motion Tuning: Scale character size from 50% to 300% and customize walking speed.📥 Windows System Tray Integration: Runs quietly in the Windows system tray when the Studio Dashboard is closed for zero taskbar clutter.🚀 Installation for Windows 10 & Windows 11 UsersOption 1: Download the Windows Installer (Recommended)Open the repository's Releases page on GitHub (https://github.com/Kathireswar/AAquabuddy).Download the latest AquaBuddy Windows Installer (64-bit .exe), if a release is available.Run the installer and follow the on-screen setup instructions.Launch AquaBuddy — its icon will appear in your Windows system tray and your companion will begin walking above the taskbar.Quick Tip: Double-click the desktop companion directly or right-click the AquaBuddy icon in the Windows system tray and select Open Studio Dashboard to customize reminder intervals, character scale (50%–300%), walking speed, and custom media uploads.🛠️ Setup & Build Guide for DevelopersAquaBuddy is built with modern web and desktop technologies (Electron, React, TypeScript, and Vite) and is easy to run or customize locally.PrerequisitesOperating System: Windows 10 or Windows 11 (64-bit)Runtime: Node.js v18 or later (recommended)Version Control: Git1. Clone the Repositorygit clone https://github.com/Kathireswar/AAquabuddy.git
 cd AAquabuddy
-2. Install dependencies
-npm install
-3. Run in development mode
-npm run dev
-4. Run linting and tests
-npm run lint
+2. Install Dependenciesnpm install
+3. Run in Development Modenpm run dev
+4. Run Linting and Unit Testsnpm run lint
 npm test
-5. Build the Windows installer
-npm run dist:win
-The installer output path depends on the build configuration. The
-project is configured to use the release/ directory for packaged
-output. Build artifacts are generated locally and should not be
-committed to Git.
-🎨 Adding Custom Characters
-You can add characters in two ways:
-1. Built-in characters: Place supported .mp4, .webm, .gif, or
-   .png files in public/characters/. They can then be selected from
-   the Studio Dashboard if supported by the current build.
-2. Custom upload: Open the Studio Dashboard and use its custom
-   character upload controls to select a video, GIF, or image. Adjust
-   the green-key tolerance and edge de-spill settings when available.
-📁 Project Structure
-AAquabuddy/
+5. Build the Windows Installernpm run dist:win
+The packaged Windows installer output path depends on your build configuration. By default, the project outputs packaged builds to the local release/ directory (build artifacts are generated locally and excluded from Git version control).🎨 How to Add Custom Characters & Green-Screen VideosYou can personalize AquaBuddy with custom characters in two ways:Built-In Character Directory: Place supported .mp4, .webm, .gif, or .png files directly inside the public/characters/ folder. They will appear in the Studio Dashboard character selector when supported by the current build.Studio Dashboard Custom Upload: Open the Studio Dashboard and use the custom character upload controls to pick any local video, GIF, or PNG image. Fine-tune the green-key tolerance and edge de-spill sliders to get clean transparent edges on green-screen or white-screen clips.⚙️ Technical ArchitectureAquaBuddy uses Electron, React, TypeScript, and Vite in a multi-window desktop architecture separating the background scheduler, secure IPC bridge, and hardware-accelerated renderer views:Architectural LayerFile / PathResponsibilities1. Electron Main Processelectron/main.tsManages the transparent, frameless, always-on-top companion overlay window and the Studio Dashboard window. Monitors Windows display work-area bounds and DPI/display change events to keep the companion anchored above the taskbar. Runs the hydration scheduler and persists user settings and daily water intake history to %APPDATA%\aquabuddy\aquabuddy-store.json.2. Secure Preload Bridgeelectron/preload.tsEnforces Electron security best practices (contextIsolation: true, nodeIntegration: false) and exposes a strictly typed window.aquaBuddy IPC bridge to the React renderer.3. Companion Overlay Renderersrc/renderer/CompanionView.tsxControls horizontal walking animation, cursor hit-box detection for click-through transparency, and the interactive "Have you had some water?" reminder speech bubble.4. Media & Chroma-Key Enginesrc/renderer/components/AquaSprite.tsxHandles .mp4, .webm, .gif, and .png rendering, including the real-time HTML Canvas HSV chroma-key background removal and edge de-spill pipeline.5. Studio Dashboard UIsrc/renderer/SettingsView.tsxProvides the user interface for the master ON/OFF toggle, live clock and countdown timer, test mode, custom character uploads, scaling (50%–300%), speed controls, and daily hydration tracking.📁 Project StructureAAquabuddy/
 ├── electron/
-│   ├── main.ts
-│   └── preload.ts
+│   ├── main.ts                  # Electron main process, window management & IPC handlers
+│   └── preload.ts               # Context-isolated preload bridge (window.aquaBuddy)
 ├── public/
-│   └── characters/
+│   └── characters/              # Built-in character assets (.mp4, .webm, .gif, .png)
 ├── src/
 │   ├── core/
-│   │   ├── scheduler.ts
-│   │   └── settings.ts
+│   │   ├── scheduler.ts         # Hydration reminder timer & snooze scheduling logic
+│   │   └── settings.ts          # Persistent configuration & %APPDATA% store management
 │   ├── renderer/
 │   │   ├── components/
-│   │   │   └── AquaSprite.tsx
-│   │   ├── App.tsx
-│   │   ├── CompanionView.tsx
-│   │   ├── SettingsView.tsx
-│   │   ├── main.tsx
-│   │   └── styles.css
+│   │   │   └── AquaSprite.tsx   # HTML Canvas HSV chroma-key & sprite rendering component
+│   │   ├── App.tsx              # Root React router/container for Companion & Dashboard views
+│   │   ├── CompanionView.tsx    # Taskbar overlay animation, hit-box & reminder bubble UI
+│   │   ├── SettingsView.tsx     # AquaBuddy Studio Dashboard & customization controls
+│   │   ├── main.tsx             # React renderer entry point
+│   │   └── styles.css           # Global application and overlay styling
 │   └── shared/
-│       └── types.ts
+│       └── types.ts             # Shared TypeScript interfaces for IPC, settings & hydration logs
 ├── tests/
-│   └── scheduler.test.ts
-├── package.json
-├── package-lock.json
-├── tsconfig.json
-└── vite.config.ts
-📄 License
-This project is licensed under the MIT License. You are
-welcome to fork, customize, and share your own desktop companions under
-the terms of that license.
+│   └── scheduler.test.ts        # Automated unit tests for the reminder scheduler
+├── package.json                 # Project metadata, scripts & Electron/React dependencies
+├── package-lock.json            # Locked dependency tree
+├── tsconfig.json                # TypeScript compiler configuration
+└── vite.config.ts               # Vite bundler configuration
+❓ Frequently Asked Questions (FAQ)Does AquaBuddy block clicks on other Windows apps or games?No. AquaBuddy uses cursor hit-box detection paired with Electron's setIgnoreMouseEvents API. Any area outside the visible character or reminder speech bubble is completely click-through, allowing you to click desktop icons, browser tabs, and applications underneath without interruption.What file formats are supported for custom desktop companions?AquaBuddy supports .mp4 and .webm videos (including green-screen and white-background videos removed automatically via HSV chroma-keying), animated .gif sprites, and transparent .png images.Where does AquaBuddy save my settings and daily water intake history?All user preferences, custom character settings, and daily hydration logs (in milliliters) are stored locally on your PC at %APPDATA%\aquabuddy\aquabuddy-store.json.Does AquaBuddy work on both Windows 10 and Windows 11?Yes. AquaBuddy supports 64-bit Windows 10 and Windows 11, dynamically reading display work-area geometry and DPI scaling events so your companion always walks cleanly above the taskbar.🔍 Related Search Topics & Keywordswindows-11-water-reminder · desktop-companion · desktop-pet-windows · hydration-reminder-app · mamitha-baiju · electron-desktop-app · react-typescript-vite · chroma-key-canvas · taskbar-companion · drink-water-reminder📄 LicenseThis project is licensed under the MIT License. You are welcome to fork, customize, and share your own Windows desktop companions under the terms of that license.
